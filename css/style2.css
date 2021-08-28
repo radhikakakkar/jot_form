@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap");
+
+body {
+  font-family: "Yanone Kaffeesatz" !important;
+  margin: auto;
+}
+header {
+  /* margin: auto; */
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 20px 20px;
+  /* float: right;
+  clear: left; */
+}
+header a {
+  padding: 10px;
+  color: grey;
+  font-size: 30px;
+}
+header h2 {
+  font-size: 36px !important;
+}
+header p {
+  color: grey;
+  font-size: 24px;
+}
+.search{
+    width: 60%;
+    height: 20% !important;
+    margin: 10px;
+    padding: 5px;
+    float:right;
+    margin-right: 10% !important;
+    position:relative;
+
+}
+input{
+    width: 60%;
+    height: 20% !important;
+    margin:auto;
+
+}
+input{
+  height: 30px !important;
+ 
+}
+
+.templates {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 60%;
+  margin-top: 5px;
+  height: 60%;
+  position: absolute;
+  margin-left: 30%;
+}
+.card {
+  margin: 10px;
+}
+.card-body{
+    margin: auto;
+}
+.card-text{
+    margin: auto !important;
+    
+}
+.card-text a {
+  text-decoration: none;
+  border: 1px solid green;
+  color: green;
+  margin: auto;
+  text-align: center !important;
+  font-size: 25px;
+  padding: 10px !important;
+  
+}
+.card-text a:hover {
+  background-color: green;
+  color: white;
+}
+aside {
+  background-color: rgb(187, 183, 183);
+  border-radius: 8px;
+  margin: 5px;
+  width: 24%;
+  height: 90%;
+  float: left;
+  position: absolute;
+}
+aside h4 {
+  padding: 8px;
+  margin: 2px;
+  font-size: 40px;
+}
+aside ul {
+  list-style-type: none;
+  padding: 0;
+}
+aside ul li {
+  padding: 3px;
+  margin: 3px;
+  /* margin: auto; */
+  font-size: 28px;
+  margin-left: 5px !important;
+}
+aside ul li:hover {
+  background-color: white;
+  border-radius: 5px;
+  padding: 3px;
+  margin: 3px;
+  font-style: italic;
+}
+
+
+

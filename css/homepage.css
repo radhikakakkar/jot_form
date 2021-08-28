@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap');
+
+body{
+    font-family: "Yanone Kaffeesatz";
+    margin: auto;
+    font-size: 35px;
+}
+
+header{
+    margin: auto;
+    position: relative;
+}
+header h1{
+    text-align: center;
+    position: relative;
+    /* right:70px; */
+   
+}
+header p{
+    color:rgb(163, 163, 163);
+    text-align: center;
+}
+.options{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+}
+
+.sec1,
+.sec2{
+    padding: 10px;
+    margin: 10px;
+}
+
+.scratch,
+.template{
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    background-color: rgb(231, 230, 230);
+    position: relative;
+}
+
+.scratch i{
+ 
+    position:absolute;
+    font-size: 50px;
+    top:40%;
+    left:40%;
+    color: gray;
+}
+.template{
+    background-image: url(../images/form.png);
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-position: center;
+    border-radius: 5px;
+   
+}
+a{
+    text-decoration: none;
+
+}
+a h3{
+    color: black;
+}
+
+/* a:hover > .des_scratch{color:blue;} */
+/* .scratch:hover h3 p { color: blue;} */
+/* a div:hover{
+    color: blue;
+}
+/* a.scratch:hover{
+    border: blue 1px solid;
+
+} */
+
+a h3:hover{
+    color: blue;
+}
+a div.scratch:hover{
+    border: blue 3px solid;
+    margin: 7px;
+    /* padding: 7px; */
+}
+a div.template:hover{
+    border: blue 3px solid;
+    margin: 7px;
+    /* padding: 7px; */
+}
+
+
+.des_template p,
+.des_scratch p{
+    font-size: 30px;
+   color:rgb(163, 163, 163);
+}
+
+.des_scratch,
+.des_template{
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    margin:10px;
+    text-align: center;
+    position: relative;
+
+}

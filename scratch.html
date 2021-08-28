@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
+    <link rel="stylesheet" href="css/scratch.css">
+    <title>Start from scratch</title>
+</head>
+
+
+ <script src="https://unpkg.com/grapesjs"></script>
+
+    <body>
+        <div class="panel__top">
+            <div class="panel__basic-actions"></div>
+            <div class="panel__devices"></div>
+            <div class="panel__switcher"></div>
+        </div>
+        <div class="editor-row">
+            <div class="editor-canvas">
+                <div id="gjs">
+                    <h1>Build your form from scratch</h1>
+                    <p>Drag and drop your desired field from the left panel</p>
+                </div>
+            </div>
+            <div class="panel__right">
+              <div class="layers-container"></div>
+              <div class="styles-container"></div>
+              <div class="traits-container"></div>
+            </div>
+          </div>
+        
+        <div id="blocks"></div>
+        <br><br>
+
+        <div>
+          <a href="publish.html" target="_blank"><button style=" float:right; height: 50px; width: 80px; background-color: grey; color: white; border-radius: 5px; margin: 10px;" id="publish" onclick="publish();"><b>Publish</b></button></a>
+        </div>
+
+    </body>
+
+    <script>
+
+    
+        const editor = grapesjs.init({
+        // Indicate where to init the editor. You can also pass an HTMLElement
+        container: '#gjs',
+        // Get the content for the canvas directly from the element
+        // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
+        fromElement: true,
+        // Size of the editor
+        height: '300px',
+        width: 'auto',
+        // Disable the storage manager for the moment
+        storageManager: false,
+        layerManager: {
+        appendTo: '.layers-container',
+        },  
+        deviceManager: {
+        devices: [{
+        name: 'Desktop',
+        width: '', // default size
+        }, {
+        name: 'Mobile',
+        width: '320px', // this value will be used on canvas width
+        widthMedia: '480px', // this value will be used in CSS @media
+      }]
+      },
+        // Avoid any default panel
+        panels: {
+        defaults: [
+            {
+            id: 'layers',
+            el: '.panel__right',
+            // Make the panel resizable
+            resizable: {
+            maxDim: 350,
+            minDim: 200,
+            tc: 0, // Top handler
+            cl: 1, // Left handler
+            cr: 0, // Right handler
+            bc: 0, // Bottom handler
+            // Being a flex child we need to change `flex-basis` property
+            // instead of the `width` (default)
+            keyWidth: 'flex-basis',
+            }
+        },
+        {
+        id: 'panel-switcher',
+        el: '.panel__switcher',
+        buttons: [{
+            id: 'show-layers',
+            active: true,
+            label: 'Layers',
+            command: 'show-layers',
+            // Once activated disable the possibility to turn it off
+            togglable: false,
+          }, {
+            id: 'show-style',
+            active: true,
+            label: 'Styles',
+            command: 'show-styles',
+            togglable: false,
+          },
+          ],
+
+      },{
+        id: 'panel-devices',
+        el: '.panel__devices',
+        buttons: [{
+            id: 'device-desktop',
+            label: 'D',
+            command: 'set-device-desktop',
+            active: true,
+            togglable: false,
+          }, {
+            id: 'device-mobile',
+            label: 'M',
+            command: 'set-device-mobile',
+            togglable: false,
+        }],
+      }
+
+            ]
+        }, 
+        traitManager: {
+        appendTo: '.traits-container',
+        },
+        blockManager: {
+      appendTo: '#blocks',
+        blocks: [
+
+        {
+            id: 'description', // id is mandatory
+            label: '<b>Form Description/purpose </b>', // You can use HTML/SVG inside labels
+            attributes: { class:'gjs-block-section' },
+            content: `<section>
+              <p> Enter the purpose of this form</p>
+            <p style="border-radius: 3px; width: 50%; height: 10%; border-style: ridge; margin: auto" > </p>
+            
+            
+            </section>`,
+        },{
+            id: 'name', // id is mandatory
+            label: '<b>Name</b>', // You can use HTML/SVG inside labels
+            attributes: { class:'gjs-block-section' },
+            content: `<section>
+              
+              <span  style="margin: auto;">Name:</span> <input style="padding: 5px; border-style: ridge; margin: auto;" placeholder="name"><br>
+            
+            
+            </section>`,
+        }, {
+            id: 'email',
+            label: '<b>Email</b>',
+            content: `<section>
+              <span style="margin: auto;">Email:</span> <input style="padding: 5px; border-style: ridge; margin: auto;" placeholder="Email"><br>
+            
+            </section>`,
+        }, {
+            id: 'phone',
+            label: '<b>Phone number</b>',
+            content: `<section>
+              <span style="margin: auto;">Phone number:</span> <input style="padding: 5px; border-style: ridge; margin: auto;" placeholder="phone number"><br>
+            </section>`,
+        },
+        {
+            id: 'image',
+            label: '<b>Image</b>',
+            // Select the component once it's dropped
+            select: true,
+            // You can pass components as a JSON instead of a simple HTML string,
+            // in this case we also use a defined component type `image`
+            content: { type: 'image' },
+            // This triggers `active` event on dropped components and the `image`
+            // reacts by opening the AssetManager
+        },
+        {
+          id: 'submit',
+          label : '<b>Submit button</b>',
+          select: true,
+          content: `<button type="submit"> Submit </button> `
+        },
+        {
+          id: 'multiple-choice',
+          label : '<b>multiple choioce field</b>',
+          select: true,
+          content: `<section><p> type a question</p>
+                    <input type="checkbox">
+                    <label for="option1"> option 1</label><br>
+                    <input type="checkbox">
+                    <label for="option2"> option 2</label><br>
+                    <input type="checkbox">
+                    <label for="option3"> option 3</label><br><section>
+                    `
+        },
+        {
+          id: 'single-choice',
+          label : '<b>single choioce field</b>',
+          select: true,
+          content: `<section><p>type a question</p>
+                    <input type="radio">
+                    <label for="option1"> option 1</label><br>
+                    <input type="radio">
+                    <label for="option2"> option 2</label><br>
+                    <input type="radio">
+                    <label for="option3"> option 3</label><br></section>
+                    `
+        },
+        {
+          id: 'short-text',
+          label : '<b>short-text</b>',
+          select: true,
+          content: `<section><p>type a question</p>
+                    <input style="border-radius: 3px; width: 50%; height: 10%;" type="text">
+                    </section>
+                    `
+        },
+        {
+          id: 'dropdown',
+          label : '<b>dropdown list</b>',
+          select: true,
+          content: `<section><p>Enter option from below</p>
+                    <select id="dropdown">
+                      <option> option 1</option>
+                      <option> option 2</option>
+                      <option> option 3</option>
+                      </select></section>
+                    `
+        },
+        {
+          id: 'date-picker',
+          label : '<b>Date picker</b>',
+          select: true,
+          content: `<section>
+          
+                  <label for="start">Start date:</label>
+
+                  <input style="margin: 10px;" type="date" id="start" name="trip-start"
+                  value="2018-07-22"
+                  min="1900-01-01" max="2021-12-31">
+                  </section> `
+        },
+        {
+          id: 'table',
+          label : '<b>Table</b>',
+          select: true,
+          content: `<section>
+            <table>
+              <tr><th>Add header </th>
+                <th>Add header </th>
+                <th>Add header </th></tr>
+              
+                <tr><td> ..... </td>
+                <td> ..... </td>
+                <td> ..... </td></tr>
+
+                <tr><td> ..... </td>
+                <td> ..... </td>
+                <td> ..... </td></tr>
+
+                <tr><td> ..... </td>
+                <td> ..... </td>
+                <td> ..... </td></tr>
+
+          </table>
+          </section>`
+        }
+
+
+]
+},
+
+
+    // but it's not mandatory
+  selectorManager: {
+    appendTo: '.styles-container'
+  },
+  styleManager: {
+    appendTo: '.styles-container',
+    sectors: [{
+        name: 'Dimension',
+        open: false,
+        // Use built-in properties
+        buildProps: ['width', 'min-height', 'padding', 'margin', 'height', 'display','position', 'font-family', 'font-size', 'border', 'float', 'text-transfrom', 'background-image', 'color' ],
+        // Use `properties` to define/override single property
+        properties: [
+          {
+            // Type of the input,
+            // options: integer | radio | select | color | slider | file | composite | stack
+            type: 'integer',
+            name: 'The width', // Label for the property
+            property: 'width', // CSS property (if buildProps contains it will be extended)
+            units: ['px', '%'], // Units, available only for 'integer' types
+            defaults: 'auto', // Default value
+            min: 0, // Min value, available only for 'integer' types
+          }
+        ]
+      },{
+        name: 'Extra',
+        open: false,
+        buildProps: ['background-color', 'box-shadow', 'custom-prop'],
+        properties: [
+          {
+            id: 'custom-prop',
+            name: 'Custom Label',
+            property: 'font-size',
+            type: 'select',
+            defaults: '32px',
+            // List of options, available only for 'select' and 'radio'  types
+            options: [
+              { value: '12px', name: 'Tiny' },
+              { value: '18px', name: 'Medium' },
+              { value: '32px', name: 'Big' },
+            ],
+         }
+        ]
+      }]
+  },storageManager: {
+      type: 'remote',
+      stepsBeforeSave: 10,
+      urlStore: 'http://store/endpoint',
+      urlLoad: 'http://load/endpoint',
+      params: {}, // Custom parameters to pass with the remote storage request, eg. CSRF token
+      headers: {}, // Custom headers for the remote storage request
+    },
+    storageManager: {
+    type: 'remote',
+    autosave: false,
+    
+  },
+
+});
+editor.Panels.addPanel({
+        id: 'panel-top',
+        el: '.panel__top',
+        });
+        editor.Panels.addPanel({
+        id: 'basic-actions',
+        el: '.panel__basic-actions',
+        buttons: [
+        {
+        id: 'visibility',
+        active: true, // active by default
+        className: 'btn-toggle-borders',
+        label: '<u>B</u>',
+        command: 'sw-visibility', // Built-in command
+        }, {
+        id: 'export',
+        className: 'btn-open-export',
+        label: 'Exp',
+        command: 'export-template',
+        context: 'export-template', // For grouping context of buttons from the same panel
+        }, {
+        id: 'show-json',
+        className: 'btn-show-json',
+        label: 'JSON',
+        context: 'show-json',
+        command(editor) {
+            editor.Modal.setTitle('Components JSON')
+            .setContent(`<textarea style="width:100%; height: 250px;">
+                ${JSON.stringify(editor.getComponents())}
+            </textarea>`)
+            .open();
+      },
+    }
+  ],
+});  
+editor.Commands.add('set-device-desktop', {
+  run: editor => editor.setDevice('Desktop')
+});
+editor.Commands.add('set-device-mobile', {
+  run: editor => editor.setDevice('Mobile')
+});
+
+ editor.Commands.add('show-traits', {
+  getTraitsEl(editor) {
+    const row = editor.getContainer().closest('.editor-row');
+    return row.querySelector('.traits-container');
+  },
+  run(editor, sender) {
+    this.getTraitsEl(editor).style.display = '';
+  },
+  stop(editor, sender) {
+    this.getTraitsEl(editor).style.display = 'none';
+  },
+});
+
+// Define commands
+editor.Commands.add('show-layers', {
+  getRowEl(editor) { return editor.getContainer().closest('.editor-row'); },
+  getLayersEl(row) { return row.querySelector('.layers-container') },
+
+  run(editor, sender) {
+    const lmEl = this.getLayersEl(this.getRowEl(editor));
+    lmEl.style.display = '';
+  },
+  stop(editor, sender) {
+    const lmEl = this.getLayersEl(this.getRowEl(editor));
+    lmEl.style.display = 'none';
+  },
+});
+editor.Commands.add('show-styles', {
+  getRowEl(editor) { return editor.getContainer().closest('.editor-row'); },
+  getStyleEl(row) { return row.querySelector('.styles-container') },
+
+  run(editor, sender) {
+    const smEl = this.getStyleEl(this.getRowEl(editor));
+    smEl.style.display = '';
+  },
+  stop(editor, sender) {
+    const smEl = this.getStyleEl(this.getRowEl(editor));
+    smEl.style.display = 'none';
+  },
+});
+
+editor.BlockManager.add('input', {
+      label: `
+      <svg class="gjs-block-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path class="gjs-block-svg-path" d="M22,9 C22,8.4 21.5,8 20.75,8 L3.25,8 C2.5,8 2,8.4 2,9 L2,15 C2,15.6 2.5,16 3.25,16 L20.75,16 C21.5,16 22,15.6 22,15 L22,9 Z M21,15 L3,15 L3,9 L21,9 L21,15 Z"></path>
+        <polygon class="gjs-block-svg-path" points="4 10 5 10 5 14 4 14"></polygon>
+      </svg>
+      <div class="gjs-block-label">${c.labelInputName}</div>`,
+      category: 'Forms',
+      content: '<input class="input" >',
+    });
+
+    </script>
+    <script type="text/javascript" src="add.js"></script>
+    
+    
+</html>
