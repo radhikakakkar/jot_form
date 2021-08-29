@@ -5,7 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
     <link rel="stylesheet" href="css/scratch.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Start from scratch</title>
+    <style>
+      .gjs-one-bg{
+        background-color: #333;
+      }
+      .gjs-pn-btn{
+        font-family: 'Poppins', sans-serif;
+      }
+      .gjs-block{
+        height: auto;
+      }
+    </style>
 </head>
 
 
@@ -20,8 +34,8 @@
         <div class="editor-row">
             <div class="editor-canvas">
                 <div id="gjs">
-                    <h1>Build your form from scratch</h1>
-                    <p>Drag and drop your desired field from the left panel</p>
+                    <h1 style="font-family: 'Poppins', sans-serif;">Build your form from scratch</h1>
+                    <p style="font-family: 'Poppins', sans-serif;">Drag and drop your desired field from the left panel</p>
                 </div>
             </div>
             <div class="panel__right">
@@ -35,7 +49,7 @@
         <br><br>
 
         <div>
-          <a href="publish.html" target="_blank"><button style=" float:right; height: 50px; width: 80px; background-color: grey; color: white; border-radius: 5px; margin: 10px;" id="publish" onclick="publish();"><b>Publish</b></button></a>
+          <a href="custom.html"><button style=" float:right; height: 50px; width: 80px; background-color: #333; color: white; border-radius: 5px; margin: 10px;border: none;" id="publish" onclick="editor.load(res => console.log('Load callback'));"><b>Publish</b></button></a>
         </div>
 
     </body>
@@ -135,7 +149,7 @@
             id: 'description', // id is mandatory
             label: '<b>Form Description/purpose </b>', // You can use HTML/SVG inside labels
             attributes: { class:'gjs-block-section' },
-            content: `<section>
+            content: `<section  style="font-family: 'Poppins', sans-serif;">
               <p> Enter the purpose of this form</p>
             <p style="border-radius: 3px; width: 50%; height: 10%; border-style: ridge; margin: auto" > </p>
             
@@ -147,7 +161,7 @@
             attributes: { class:'gjs-block-section' },
             content: `<section>
               
-              <span  style="margin: auto;">Name:</span> <input style="padding: 5px; border-style: ridge; margin: auto;" placeholder="name"><br>
+              <span  style="margin: auto;font-family: 'Poppins', sans-serif;">Name:</span> <input style="padding: 5px; border-style: ridge; margin: auto;" placeholder="name"><br>
             
             
             </section>`,
@@ -155,14 +169,14 @@
             id: 'email',
             label: '<b>Email</b>',
             content: `<section>
-              <span style="margin: auto;">Email:</span> <input style="padding: 5px; border-style: ridge; margin: auto;" placeholder="Email"><br>
+              <span style="margin: auto;font-family: 'Poppins', sans-serif;">Email:</span> <input style="padding: 5px; border-style: ridge; margin: auto;" placeholder="Email"><br>
             
             </section>`,
         }, {
             id: 'phone',
             label: '<b>Phone number</b>',
             content: `<section>
-              <span style="margin: auto;">Phone number:</span> <input style="padding: 5px; border-style: ridge; margin: auto;" placeholder="phone number"><br>
+              <span style="margin: auto;font-family: 'Poppins', sans-serif;">Phone number:</span> <input style="padding: 5px; border-style: ridge; margin: auto;" placeholder="phone number"><br>
             </section>`,
         },
         {
@@ -180,13 +194,13 @@
           id: 'submit',
           label : '<b>Submit button</b>',
           select: true,
-          content: `<button type="submit"> Submit </button> `
+          content: `<button type="submit" style="font-family: 'Poppins', sans-serif;color:#fff;border-radius:5px;background-color:#2196F3;border:none;outline:none;"> Submit </button> `
         },
         {
           id: 'multiple-choice',
           label : '<b>multiple choioce field</b>',
           select: true,
-          content: `<section><p> type a question</p>
+          content: `<section  style="font-family: 'Poppins', sans-serif;"><p> type a question</p>
                     <input type="checkbox">
                     <label for="option1"> option 1</label><br>
                     <input type="checkbox">
@@ -199,7 +213,7 @@
           id: 'single-choice',
           label : '<b>single choioce field</b>',
           select: true,
-          content: `<section><p>type a question</p>
+          content: `<section  style="font-family: 'Poppins', sans-serif;"><p>type a question</p>
                     <input type="radio">
                     <label for="option1"> option 1</label><br>
                     <input type="radio">
@@ -212,7 +226,7 @@
           id: 'short-text',
           label : '<b>short-text</b>',
           select: true,
-          content: `<section><p>type a question</p>
+          content: `<section  style="font-family: 'Poppins', sans-serif;"><p>type a question</p>
                     <input style="border-radius: 3px; width: 50%; height: 10%;" type="text">
                     </section>
                     `
@@ -221,7 +235,7 @@
           id: 'dropdown',
           label : '<b>dropdown list</b>',
           select: true,
-          content: `<section><p>Enter option from below</p>
+          content: `<section  style="font-family: 'Poppins', sans-serif;"><p>Enter option from below</p>
                     <select id="dropdown">
                       <option> option 1</option>
                       <option> option 2</option>
@@ -233,7 +247,7 @@
           id: 'date-picker',
           label : '<b>Date picker</b>',
           select: true,
-          content: `<section>
+          content: `<section  style="font-family: 'Poppins', sans-serif;">
           
                   <label for="start">Start date:</label>
 
@@ -247,7 +261,7 @@
           label : '<b>Table</b>',
           select: true,
           content: `<section>
-            <table>
+            <table  style="font-family: 'Poppins', sans-serif;">
               <tr><th>Add header </th>
                 <th>Add header </th>
                 <th>Add header </th></tr>
@@ -318,17 +332,11 @@
         ]
       }]
   },storageManager: {
-      type: 'remote',
-      stepsBeforeSave: 10,
-      urlStore: 'http://store/endpoint',
-      urlLoad: 'http://load/endpoint',
-      params: {}, // Custom parameters to pass with the remote storage request, eg. CSRF token
-      headers: {}, // Custom headers for the remote storage request
-    },
-    storageManager: {
-    type: 'remote',
-    autosave: false,
-    
+    id: 'gjs-',             // Prefix identifier that will be used on parameters
+    type: 'local',          // Type of the storage
+    autosave: true,         // Store data automatically
+    autoload: false,         // Autoload stored data on init
+    stepsBeforeSave: 1,     // If autosave enabled, indicates how many changes are necessary before store method is triggered
   },
 
 });
@@ -427,7 +435,4 @@ editor.BlockManager.add('input', {
     });
 
     </script>
-    <script type="text/javascript" src="add.js"></script>
-    
-    
 </html>
